@@ -7,7 +7,7 @@ var numberofSpaces =0;
 var spacesMissing =[]; 
 var worngGuesses=[];  
 
-dsvar guessedLetter=[];
+var guessedLetter=[];
 
 var wins = 0;
 var losses =0;
