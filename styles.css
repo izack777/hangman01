@@ -1,3 +1,19 @@
 body{
-	background-color:lightblue;
+	background-color:lightgray;
+}
+
+.jumbotron{
+	background-image: url(https://media.ed.edmunds-media.com/chevrolet/camaro/2018/fd/2018_chevrolet_camaro_actf34_fd_628171_717.jpg);
+	background-size: contain;
+	background-position: center;
+	background-size:cover;
+	color:#DC143C;
+	text-shadow: 2px 1px gray;
+	padding:130px;
+}
+
+.card{
+
+	color:orange;
+	text-shadow: 2px 1px gray;
 }

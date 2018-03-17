@@ -1,124 +1,130 @@
-var winCounter = 0;
-var lossCounter = 0;
-var numberOfGuesses = 12;
 
 
-var topicList = [ "Camaro" ,"Corvette", "Supra","Skyline"];
+var carOptions =["camaro","mustang","charger","firebird","viper","supra"];
+var chosenWord ="";
+var lettersinsideWord =[];
+var numberofSpaces =0; 
+var spacesMissing =[]; 
+var worngGuesses=[];  
 
-var wordSelected = "";
+dsvar guessedLetter=[];
 
-var lettersinWordPicked =[];
-
-var blanksSpaces= 0; 
-
-var blanksandOther = [];
-
-var wrongGuess = [];
+var wins = 0;
+var losses =0;
+var numberofGuesses=12;
 
 
 function beginGame(){
-
-	numberOfGuesses = 12;
-
-	wordSelected = topicList[Math.floor(Math.random()*topicList.length)];
-
-	lettersinWordPicked = wordSelected.split("");
-
-	blanksSpaces = lettersinWordPicked.lenght;
+  chosenWord = carOptions[Math.floor(Math.random() * carOptions.length)];
+  lettersinsideWord = chosenWord.split("");
+  numberofSpaces = lettersinsideWord.length;
 
 
+  numberofGuesses = 12
+  worngGuesses =[];
+  spacesMissing =[];
 
-	console.log(wordSelected);
-	
-
-	blanksandOther= [];
-	wrongGuess = [];
-
-	for (var i = 0; i<blanksSpaces; i++){
-		blanksandOther.push("_");
-
-		console.log(blanksandOther);
-	
-
-document.getElementById("guess_left").innerHTML=numberOfGuesses;
-document.getElementById("word_spaces").innerHTML=blanksandOther;
-document.getElementById("wrong_guess").innerHTML=wrongGuess.join(" ");
-
-
+for (var i= 0; i<numberofSpaces; i++){
+    spacesMissing.push("_");
 }
 
-function letterChecker(event){
-
-	var lettersinWord= false
-
-	for (var i = 0; i<blanksSpaces; i++){
-		if (wordSelected[i]===event){
-
-			lettersinWord = true
-		}
-	}
-
- 	if(lettersinWord){
- 		for(var i = 0; i < blanksSpaces; i++){
- 			blanksandOther[i]= event;
- 		}
- 	}
-
-console.log(blanksandOther);
+console.log(spacesMissing);
 
 
-	else{
-		wrongGuess.push(event);
-		numberOfGuesses--;
-	}
+document.getElementById("guess-left").innerHTML = numberofGuesses;
+document.getElementById("word-spaces").innerHTML = spacesMissing.join(" ");
+document.getElementById("wins").innerHTML = wins;
+document.getElementById("losses").innerHTML=losses;
+
+  console.log(chosenWord);
+  console.log(lettersinsideWord);
+  console.log(numberofSpaces)
 }
 
-function roundComplete(){
+function compareLetters(letter){
 
+    var checkLetterinWord = false;
 
-  console.log("wins:" + winCounter + " | losses: " + lossCounter + " | guess-left: " + numGuesses);
-  
-  document.getElementById("guess-left").innerHTML = numGuesses;
-
-  document.getElementById("word-spaces").innerHTML = blanksAndSuccesses.join(" ");
- 
-  document.getElementById("wrong-guess").innerHTML = wrongGuesses.join(" ");
- 
-  if (lettersInChosenWord.toString() === blanksAndSuccesses.toString()) {
-
-    winCounter++;
-    alert("You win!");
-  
-    document.getElementById("wins").innerHTML = winCounter;
-    startGame();
+    for (var i=0; i<numberofSpaces; i++){
+         if(chosenWord[i]== letter) {
+          checkLetterinWord = true;
+      }
   }
 
-  else if (numGuesses === 0) {
- 
-    lossCounter++;
-  
-    alert("You lose");
- 
-    document.getElementById("losses").innerHTML = lossCounter;
+  if (checkLetterinWord){
+    for (var i=0; i<numberofSpaces; i++){
+      if(chosenWord[i] == letter){
+        spacesMissing[i]=letter;
+
+      }
+    }
+  }
+
+else{worngGuesses.push(letter);
+  numberofGuesses --
+
+}
+
+      console.log(spacesMissing);
+
+}
+
+function endOfRound(){
+
+
+  document.getElementById("guess-left").innerHTML = numberofGuesses;
+  document.getElementById("word-spaces").innerHTML = spacesMissing.join(" ");
+  document.getElementById("wrong-guess").innerHTML = worngGuesses.join(" ");
+
+
+  if(lettersinsideWord.toString()== spacesMissing.toString()){
+    wins++;
+    alert("good shit ma dude");
+
+    document.getElementById("wins").innerHTML = wins;
+    
+    beginGame();
+  }
+
+  else if (numberofGuesses == 0){
+    losses ++;
+    alert("You Suck my Dude")
+
+    document.getElementById("losses").innerHTML =losses;
 
     beginGame();
   }
+
+
 }
+
+
 
 beginGame();
 
-document.onkeyup = function(event) {
 
-  var letterGuessed = String.fromCharCode(event.keyCode).toLowerCase();
+document.onkeyup = function(event){
+  guessedLetter = String.fromCharCode(event.keyCode).toLowerCase();
+  compareLetters(guessedLetter);
 
-  checkLetters(letterGuessed);
+  endOfRound();
+
+
   
-  roundComplete();
-
-
-
+  console.log(guessedLetter);
 
 
 };
 
-beginGame()
+
+
+
+
+
+
+
+
+
+
+
+
